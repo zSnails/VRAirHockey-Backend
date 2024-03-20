@@ -18,7 +18,7 @@ func GetScores(w http.ResponseWriter, r *http.Request) {
 
 	DB := db.Get()
 	queries := store.New(DB)
-	scores, err := queries.GetPlayerScores(r.Context(), player.ID.(int64))
+	scores, err := queries.GetPlayerScores(r.Context(), player.ID)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -51,7 +51,7 @@ func RegisterScore(w http.ResponseWriter, r *http.Request) {
 
 	score, err := queries.RegisterPlayerScore(r.Context(), store.RegisterPlayerScoreParams{
 		Score:    payload.Score,
-		PlayerID: player.ID.(int64),
+		PlayerID: player.ID,
 	})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

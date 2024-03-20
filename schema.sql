@@ -1,8 +1,7 @@
 CREATE TABLE Players (
-    id INTEGER NOT NULL AUTOINCREMENT UNIQUE,
+    id INTEGER PRIMARY KEY,
     email TEXT NOT NULL UNIQUE,
-    name TEXT NOT NULL,
-    PRIMARY KEY (id, email)
+    name TEXT NOT NULL
 );
 
 CREATE TABLE Scores (
