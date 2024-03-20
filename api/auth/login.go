@@ -2,6 +2,7 @@ package auth
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -57,18 +58,24 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	jsonPlayer, err := json.Marshal(player)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
 	sess.Values["authenticated"] = true
-	sess.Values["player"] = player
+	sess.Values["player"] = jsonPlayer
 
 	err = sess.Save(r, w)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-
-	err = json.NewEncoder(w).Encode(player)
+	_, err = fmt.Fprint(w, jsonPlayer)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
 }
