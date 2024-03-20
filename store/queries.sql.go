@@ -66,7 +66,7 @@ SELECT id, email, name FROM Players
 WHERE id = ? LIMIT 1
 `
 
-func (q *Queries) GetPlayerByID(ctx context.Context, id int64) (Player, error) {
+func (q *Queries) GetPlayerByID(ctx context.Context, id interface{}) (Player, error) {
 	row := q.db.QueryRowContext(ctx, getPlayerByID, id)
 	var i Player
 	err := row.Scan(&i.ID, &i.Email, &i.Name)
@@ -151,8 +151,8 @@ RETURNING id, email, name
 `
 
 type RenamePlayerParams struct {
-	Name string `json:"name"`
-	ID   int64  `json:"id"`
+	Name string      `json:"name"`
+	ID   interface{} `json:"id"`
 }
 
 func (q *Queries) RenamePlayer(ctx context.Context, arg RenamePlayerParams) (Player, error) {

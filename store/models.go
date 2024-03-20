@@ -15,9 +15,9 @@ type Auth struct {
 }
 
 type Player struct {
-	ID    int64  `json:"id"`
-	Email string `json:"email"`
-	Name  string `json:"name"`
+	ID    interface{} `json:"id"`
+	Email string      `json:"email"`
+	Name  string      `json:"name"`
 }
 
 type Score struct {
