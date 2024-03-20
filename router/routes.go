@@ -7,11 +7,11 @@ import (
 )
 
 func registerAuthRoutes(router *mux.Router) {
-	router.HandleFunc("/auth/register", auth.Register)
-	router.HandleFunc("/auth/login", auth.Login)
+	router.HandleFunc("/auth/register", auth.Register).Methods("POST")
+	router.HandleFunc("/auth/login", auth.Login).Methods("POST")
 }
 
 func registerScoreRoutes(router *mux.Router) {
-	router.HandleFunc("/scores/upload", scores.RegisterScore)
-	router.HandleFunc("/scores/", scores.GetScores)
+	router.HandleFunc("/scores", scores.RegisterScore).Methods("POST")
+	router.HandleFunc("/scores", scores.GetScores).Methods("GET")
 }
