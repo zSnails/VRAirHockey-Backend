@@ -12,6 +12,6 @@ func registerAuthRoutes(router *mux.Router) {
 }
 
 func registerScoreRoutes(router *mux.Router) {
-	router.HandleFunc("/api/scores/upload", scores.RegisterScore)
-	router.HandleFunc("/api/scores/", scores.GetScores)
+	router.HandleFunc("/scores/upload", scores.RegisterScore)
+	router.HandleFunc("/scores/", scores.GetScores)
 }

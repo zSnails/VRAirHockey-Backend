@@ -17,7 +17,8 @@ func NewRouter() http.Handler {
 	// TODO: auth middleware and all that shit.
 	logger.Info("Registering routes")
 	registerAuthRoutes(r)
-	r.Use(middleware.Auth)
-	registerScoreRoutes(r)
+	api := r.PathPrefix("/api").Subrouter()
+	api.Use(middleware.Auth)
+	registerScoreRoutes(api)
 	return r
 }

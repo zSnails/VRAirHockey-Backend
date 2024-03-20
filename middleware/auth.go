@@ -19,7 +19,7 @@ func Auth(h http.Handler) http.Handler {
 		}
 
 		if sess.IsNew {
-			http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
+			http.Error(w, "New Session", http.StatusUnauthorized)
 			return
 		}
 
