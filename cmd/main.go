@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/gob"
 	"flag"
 	"net/http"
 	"os"
@@ -13,6 +14,7 @@ import (
 	"github.com/zSnails/VRAirHockey-Backend/db"
 	"github.com/zSnails/VRAirHockey-Backend/router"
 	"github.com/zSnails/VRAirHockey-Backend/session"
+	"github.com/zSnails/VRAirHockey-Backend/store"
 )
 
 var (
@@ -21,6 +23,7 @@ var (
 )
 
 func init() {
+	gob.Register(store.Player{})
 
 	logger.Logger.SetFormatter(&logrus.TextFormatter{})
 	err := godotenv.Load()

@@ -58,21 +58,16 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	jsonPlayer, err := json.Marshal(player)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
 	sess.Values["authenticated"] = true
-	sess.Values["player"] = jsonPlayer
+	sess.Values["player"] = player
 
 	err = sess.Save(r, w)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	_, err = fmt.Fprint(w, jsonPlayer)
+
+	err = json.NewEncoder(w).Encode(player)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
