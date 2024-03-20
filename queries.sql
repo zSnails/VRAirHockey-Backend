@@ -28,8 +28,8 @@ WHERE id = ?
 RETURNING *;
 
 -- name: CreateAuth :exec
-INSERT INTO Auth (hash, player_id)
-VALUES (?, ?);
+INSERT INTO Auth (hash, player_id, player_email)
+VALUES (?, ?, ?);
 
 -- name: GetAuth :one
 SELECT * FROM Auth 

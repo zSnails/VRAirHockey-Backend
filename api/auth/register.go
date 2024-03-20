@@ -40,8 +40,9 @@ func register(ctx context.Context, payload *RegisterRequestPayload) (store.Playe
 	}
 
 	err = queries.CreateAuth(ctx, store.CreateAuthParams{
-		Hash:     string(hash),
-		PlayerID: created.ID,
+		Hash:        string(hash),
+		PlayerID:    created.ID,
+		PlayerEmail: payload.Email,
 	})
 	if err != nil {
 		return store.Player{}, err
