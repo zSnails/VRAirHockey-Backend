@@ -10,17 +10,18 @@ import (
 )
 
 const createAuth = `-- name: CreateAuth :exec
-INSERT INTO Auth (hash, player_id)
-VALUES (?, ?)
+INSERT INTO Auth (hash, player_id, player_email)
+VALUES (?, ?, ?)
 `
 
 type CreateAuthParams struct {
-	Hash     string `json:"hash"`
-	PlayerID int64  `json:"playerId"`
+	Hash        string `json:"hash"`
+	PlayerID    int64  `json:"playerId"`
+	PlayerEmail string `json:"playerEmail"`
 }
 
 func (q *Queries) CreateAuth(ctx context.Context, arg CreateAuthParams) error {
-	_, err := q.db.ExecContext(ctx, createAuth, arg.Hash, arg.PlayerID)
+	_, err := q.db.ExecContext(ctx, createAuth, arg.Hash, arg.PlayerID, arg.PlayerEmail)
 	return err
 }
 
